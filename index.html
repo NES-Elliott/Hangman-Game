@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Hangman | Nathaniel Spry</title>
+	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- <link rel="stylesheet" type="text/css" href="assets/css/style.css"> -->
+</head>
+<body>
+<!-- Theme : Iconic Video Game Characters -->
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html"><span id="ns-span" style="color:black">Nathaniel Spry</span></a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <ul class="nav navbar-nav navbar-right">
+    	<li><a id="portfolio-button" href="https://nes-elliott.github.io/Bootstrap-Portfolio/portfolio.html">Back to Portfolio</a></li>
+    </ul>
+  </div><!-- /.container-fluid -->
+</nav>
+
+<div class="container">
+
+	<div class="row">
+		
+		<div class="col-md-6">
+
+			<img id="hangman_logo" src="assets/images/hangman_logo.jpg">
+			
+		</div>
+
+		<div class="col-md-6">
+
+			<p id="holder"></p>
+			
+		</div>
+	</div>	
+</div> <!--container end-->
+
+<div class="container">
+	<div class="row">
+
+		<div class="col-md-6">
+
+			<p id="hintBox">Ready to play? Hit a key to guess a letter!</p>
+
+		</div>
+
+		<div class="col-md-6">
+
+			<div class="row right-col-header">
+				<div class="col-md-12">
+					<h1>Welcome to Video Game Hangman!</h1>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<p id="guessBox">This is where your guessed letters will appear.</p>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<p id="livesBox">This is where the lives info goes.</p>
+				</div>
+
+			</div>
+
+		</div>
+		
+	</div>
+
+</div> <!--container end-->
+
+<script type="text/javascript" src="assets/javascript/game.js"></script>
+</body>
+</html>
