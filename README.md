@@ -1,1 +1,1 @@
-# Hangman-Game
+# TEMPLATE FOR WEBSITES - created by Nathaniel Spry
