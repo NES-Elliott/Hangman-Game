@@ -5,43 +5,24 @@
 	<title>Hangman | Nathaniel Spry</title>
 
 	<!-- CSS Reset Sheet -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css">
-	<!-- Bootstrap -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/reset.css">
 	<!-- CSS Sheet -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
     <!-- Google Fonts -->
 	<!-- jQuery -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 </head>
 <body>
-
-	<!-- CONTAINER -->
-	<div class="container">
-		<!-- NEW GAME: Jumbotron -->
-		<div class="jumbotron">
-			<h1>HANGMAN, yo!</h1>
-			<p>Click the new game button to start.</p>
-
-			<button class="btn btn-danger btn-lg" id="new-game">New Game</button>
-		</div> <!-- Jumbotron END-->
-		<!-- Game Info -->
-		<div class="row"> <!-- Overall Game Info:LEFT HAND COL -->
-			<div class="col-md-6">
-				<h3>Overall Game Info</h3>
-				<div id="wins"></div>
-				<div id="losses"></div>
-			</div> <!-- LEFT HAND COL END -->
-			<div class="col-md-6"> <!-- Current Game Info:RIGHT HAND COL -->
-				<h3>Current Game Info</h3>
-				<div id="guesses-left"></div>
-				<div id="blank-spaces"></div>
-				<div id="letters-guessed"></div>
-			</div> <!-- RIGHT HAND COL END -->
-		</div>
-	</div> <!-- CONTAINER END -->
-
+  <div class="container">
+    <div class="game">
+      <button class="play">Play Game</button>
+    </div>
+    <div class="stats">
+      <p># of Guesses:</p>
+      <p>Letters Guessed:</p>
+    </div>
+  </div>
 	<!-- Javascript -->
 	<script type="text/javascript" src="assets/javascript/app.js"></script>
 </body>

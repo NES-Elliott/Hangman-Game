@@ -1,1 +1,1 @@
-# TEMPLATE FOR WEBSITES - created by Nathaniel Spry
+Very basic hangman game made with HTML, CSS and vanilla Javascript
