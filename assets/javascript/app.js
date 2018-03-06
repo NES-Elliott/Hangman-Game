@@ -1,5 +1,4 @@
 // GLOBAL VARIABLES
-// Determined
 const wordBank = ["red", "green", "blue"]
 const lettersGuessed = []
 let chosenWordBlanks = []
@@ -8,7 +7,6 @@ let losses = 0
 let guessesLeft = 10
 let inProgress = false
 let wordGuessed = false
-// Undetermined
 let chosenWordArray
 let keyPressed
 
@@ -21,6 +19,7 @@ function playGame() {
   // Pick a word
   let chosenWord = wordBank[Math.floor(Math.random() * wordBank.length)]
   chosenWordArray = chosenWord.split("")
+  chosenWordArray.map(() => chosenWordBlanks.push("_"))
   // Populate UI
   gameUI()
   statUI()
@@ -39,20 +38,19 @@ function detectLetterPressed() { // Capture key clicks
 function checkCorrect(letter) { // Check for match
   let correct = false
   chosenWordArray.map(chosenLetter => {
-    if (chosenLetter === letter) correct = true
+    if (chosenLetter === letter) correct = true // Word Letter = Guess Letter? If so true
   })
   if (correct) {
-    console.log("correct")
-    for (i=0; i<chosenWordBlanks.length; i++) {
+    for (i=0; i<chosenWordBlanks.length; i++) { // Replace blank with cooresponding letter
       if (chosenWordArray[i] === letter) chosenWordBlanks[i] = letter
     }
     console.log(chosenWordBlanks)
     if (chosenWordBlanks.indexOf("_") === (-1)) wordGuessed = true
-  } else if (lettersGuessed.indexOf(letter) === -1) {
+  } else if (lettersGuessed.indexOf(letter) === -1) { // If incorrect, decrement guessesLeft and display the letter
     lettersGuessed.push(letter)
     guessesLeft--
-    console.log(lettersGuessed)
-    console.log(`Guesses left: ${guessesLeft}`)
+    console.log(`Guesses Left: ${guessesLeft}`)
+    console.log(`Letters Guessed Incorrectly: ${lettersGuessed}`)
   }
   gameOver()
   statUI()
@@ -61,11 +59,12 @@ function checkCorrect(letter) { // Check for match
 
 function gameOver() { // Checks for game over
   if (inProgress) {
-    if (guessesLeft === 0 && !wordGuessed) {
+    if (guessesLeft === 0 && !wordGuessed) { // No guessesLeft and the word is not guessed
       losses++
       console.log(`Losses: ${losses}`)
       inProgress = false
-    } else if (wordGuessed) {
+    } else if (wordGuessed) { // Word is guessed
+      console.log(`Word guessed: ${wordGuessed}`)
       wins++
       console.log(`Wins: ${wins}`)
       inProgress = false
@@ -87,10 +86,9 @@ function playButton() {
 function gameUI() { // Game UI Visuals
   $(".game").html("")
   const gameDiv = $(".game")
-  const word = $("<ul>")
+  const word = $("<ul>").addClass("word-list")
 
   for (i=0; i<chosenWordArray.length; i++) {
-    if (!inProgress) chosenWordBlanks.push("_")
     word.append($("<li>").text(chosenWordBlanks[i]))
   }
   gameDiv.append(word)
