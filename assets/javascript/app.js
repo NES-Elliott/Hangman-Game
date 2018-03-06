@@ -1,75 +1,101 @@
 // GLOBAL VARIABLES
 // Determined
-const wordBank = ["Red", "Green", "Blue"]
+const wins = 0
+const losses = 0
+const wordBank = ["red", "green", "blue"]
 const lettersGuessed = []
+let chosenWordBlanks = []
 let guessesLeft = 10
-let wins = 0
-let losses = 0
 let inProgress = false
 let wordGuessed = false
 // Undetermined
-let chosenWord
+let chosenWordArray
+let keyPressed
 
-// Word is picked from a bank of words at random and stored in a variable
+// ~~~ MAIN ~~~
 function playGame() {
-  // reset variables
-  inProgress = true
+  // Reset variables
+  chosenWordBlanks = []
   guessesLeft = 10
-  // pick a new word
-  chosenWord = wordBank[Math.floor(Math.random() * wordBank.length)]
-  console.log(chosenWord)
-  // populate ui
-  clearUI()
+  wordGuessed = false
+  // Pick a word
+  let chosenWord = wordBank[Math.floor(Math.random() * wordBank.length)]
+  chosenWordArray = chosenWord.split("")
+  // Populate UI
   gameUI()
   statUI()
+  inProgress = true
 }
+// ~~~ MAIN END ~~~
+
 // ~~~ LOGIC ~~~
-// Player clicks a key on their keyboard that cooresponses with the letter they would like to guess
-// (ONLY ALLOW LETTERS AND DASHES)
+function detectLetterPressed() { // Capture key clicks
+  keyPressed = String.fromCharCode(event.keyCode).toLowerCase()
+  let isLetter = /[a-z]/g.test(keyPressed)
+  if (isLetter) checkCorrect(keyPressed)
+}
 
+function checkCorrect(letter) { // Check for match
+  let correct = false
+  chosenWordArray.map(chosenLetter => {
+    if (chosenLetter === letter) correct = true
+  })
+  if (correct) {
+    console.log("correct")
+    for (i=0; i<chosenWordBlanks.length; i++) {
+      if (chosenWordArray[i] === letter) chosenWordBlanks[i] = letter
+    }
+    console.log(chosenWordBlanks)
+    if (chosenWordBlanks.indexOf("_") === (-1)) wordGuessed = true
+  } else {
+    lettersGuessed.push(letter)
+    guessesLeft--
+    console.log(lettersGuessed)
+    console.log(`Guesses left: ${guessesLeft}`)
+  }
+  gameOver()
+  statUI()
+  gameUI()
+}
 
-// If the word is guessed correctly, increment the players win score by 1
-// If the word is guessed incorrectly and the player has no more guesses, increment the loss score by 1
-function gameOver() {
-  inProgress = false
-  // check if win or loss
-  if (guessesLeft === 0 && !wordGuessed) { // If lose
-    losses++
-    console.log(losses)
-  } else if (wordGuessed) { // If win
-    wins++
-    console.log(wins)
+function gameOver() { // Checks for game over
+  if (inProgress) {
+    if (guessesLeft === 0 && !wordGuessed) {
+      losses++
+      console.log(`Losses: ${losses}`)
+      inProgress = false
+    } else if (wordGuessed) {
+      wins++
+      console.log(`Wins: ${wins}`)
+      inProgress = false
+    }
   }
 }
 // ~~~ LOGIC END ~~~
 
 // ~~~ UI ~~~
-function clearUI() {
+function gameUI() { // Game UI Visuals
   $(".game").html("")
-  $(".stats").html("")
-}
-
-function gameUI() {
-  // we want this to append an unordered list to the game div and the cooresponding li tags
-  // with the amount of letters within the word that needs to be guessed
   const gameDiv = $(".game")
   const word = $("<ul>")
 
-  for (i=0; i<chosenWord.length; i++) {
-    word.append($("<li>").text("_"))
+  for (i=0; i<chosenWordArray.length; i++) {
+    if (!inProgress) chosenWordBlanks.push("_")
+    word.append($("<li>").text(chosenWordBlanks[i]))
   }
   gameDiv.append(word)
 }
 
 function statUI() {
+  $(".stats").html("")
   const statDiv = $(".stats")
   const overall = $("<div>").addClass("overall")
   const current = $("<div>").addClass("current")
 
-  const numberGuessesLeft = $("<p>").text("# of Guesses Left: " + guessesLeft)
-  const guessedList = $("<p>").text("Letters Guessed: ")
-  const winStat = $("<p>").text("Wins: " + wins)
-  const lossStat =  $("<p>").text("Losses: " + losses)
+  const numberGuessesLeft = $("<p>").text(`# of Guesses Left: ${guessesLeft}`)
+  const guessedList = $("<p>").text(`Letters Guessed: ${lettersGuessed}`)
+  const winStat = $("<p>").text(`Wins: ${wins}`)
+  const lossStat =  $("<p>").text(`Losses: ${losses}`)
 
   overall.append(winStat).append(lossStat)
   current.append(numberGuessesLeft).append(guessedList)
@@ -77,7 +103,12 @@ function statUI() {
 }
 // ~~~ UI END ~~~
 
+// RUN
 $(document).ready(function() {
   console.log("ready")
   $(".play").on("click", playGame)
 })
+// DETECT KEY PRESSES
+document.onkeyup = function(event) {
+  if (inProgress) detectLetterPressed()
+}
