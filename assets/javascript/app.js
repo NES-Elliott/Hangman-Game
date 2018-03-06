@@ -25,6 +25,7 @@ function playGame() {
   gameUI()
   statUI()
   inProgress = true
+  playButton()
 }
 // ~~~ MAIN END ~~~
 
@@ -70,10 +71,19 @@ function gameOver() { // Checks for game over
       inProgress = false
     }
   }
+  playButton()
 }
 // ~~~ LOGIC END ~~~
 
 // ~~~ UI ~~~
+function playButton() {
+  if (inProgress) {
+    $(".play").text("Reset")
+  } else {
+    $(".play").text("Play Again")
+  }
+}
+
 function gameUI() { // Game UI Visuals
   $(".game").html("")
   const gameDiv = $(".game")
