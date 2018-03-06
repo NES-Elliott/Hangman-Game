@@ -1,10 +1,10 @@
 // GLOBAL VARIABLES
 // Determined
-const wins = 0
-const losses = 0
 const wordBank = ["red", "green", "blue"]
 const lettersGuessed = []
 let chosenWordBlanks = []
+let wins = 0
+let losses = 0
 let guessesLeft = 10
 let inProgress = false
 let wordGuessed = false
@@ -47,7 +47,7 @@ function checkCorrect(letter) { // Check for match
     }
     console.log(chosenWordBlanks)
     if (chosenWordBlanks.indexOf("_") === (-1)) wordGuessed = true
-  } else {
+  } else if (lettersGuessed.indexOf(letter) === -1) {
     lettersGuessed.push(letter)
     guessesLeft--
     console.log(lettersGuessed)
@@ -93,7 +93,7 @@ function statUI() {
   const current = $("<div>").addClass("current")
 
   const numberGuessesLeft = $("<p>").text(`# of Guesses Left: ${guessesLeft}`)
-  const guessedList = $("<p>").text(`Letters Guessed: ${lettersGuessed}`)
+  const guessedList = $("<p>").text(`Wrong Letters Guessed: ${lettersGuessed}`)
   const winStat = $("<p>").text(`Wins: ${wins}`)
   const lossStat =  $("<p>").text(`Losses: ${losses}`)
 
