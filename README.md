@@ -1,1 +1,2 @@
-Very basic hangman game made with HTML, CSS, JS and JQuery
+### Hangman
+> Small lightweight hangman game created using HTML, CSS, Javascript and JQuery
