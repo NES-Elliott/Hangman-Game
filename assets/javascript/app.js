@@ -1,23 +1,106 @@
 // GLOBAL VARIABLES
-const wordBank = ["red", "green", "blue"]
-const lettersGuessed = []
+const wordBank = [
+  "azure",
+  "affix",
+  "awkward",
+  "blizzard",
+  "bikini",
+  "beekeeper",
+  "crypt",
+  "cockiness",
+  "cobweb",
+  "dizzying",
+  "duplex",
+  "dwarves",
+  "equip",
+  "espionage",
+  "exodus",
+  "fuchsia",
+  "flapjack",
+  "flopping",
+  "galaxy",
+  "glyph",
+  "gnostic",
+  "haiku",
+  "hyphen",
+  "haphazard",
+  "ivory",
+  "impossible",
+  "invent",
+  "jigsaw",
+  "jazzy",
+  "jawbreaker",
+  "kiosk",
+  "kilobyte",
+  "khaki",
+  "lucky",
+  "luxury",
+  "lengths",
+  "matrix",
+  "microwave",
+  "mystify",
+  "nymph",
+  "numbskull",
+  "nowadays",
+  "oxygen",
+  "oxidize",
+  "ostrich",
+  "pixel",
+  "peek",
+  "psyche",
+  "quartz",
+  "quips",
+  "queue",
+  "racks",
+  "rhythm",
+  "risky",
+  "spritz",
+  "staff",
+  "swivel",
+  "topaz",
+  "twelfth",
+  "transplant",
+  "uptown",
+  "unzip",
+  "unknown",
+  "voodoo",
+  "vodka",
+  "vixen",
+  "wave",
+  "whiskey",
+  "wellspring",
+  "xylophone",
+  "xenon",
+  "xenial",
+  "yummy",
+  "youthful",
+  "yoked",
+  "zephyr",
+  "zodiac",
+  "zipper"
+]
+let revealWord = ""
+let lettersGuessed = []
 let chosenWordBlanks = []
 let wins = 0
 let losses = 0
 let guessesLeft = 10
 let inProgress = false
 let wordGuessed = false
+let chosenWord
 let chosenWordArray
 let keyPressed
 
 // ~~~ MAIN ~~~
 function playGame() {
   // Reset variables
+  revealWord = ""
+  lettersGuessed = []
   chosenWordBlanks = []
   guessesLeft = 10
   wordGuessed = false
   // Pick a word
-  let chosenWord = wordBank[Math.floor(Math.random() * wordBank.length)]
+  chosenWord = wordBank[Math.floor(Math.random() * wordBank.length)]
   chosenWordArray = chosenWord.split("")
   chosenWordArray.map(() => chosenWordBlanks.push("_"))
   // Populate UI
@@ -62,6 +145,7 @@ function gameOver() { // Checks for game over
     if (guessesLeft === 0 && !wordGuessed) { // No guessesLeft and the word is not guessed
       losses++
       console.log(`Losses: ${losses}`)
+      revealWord = chosenWord
       inProgress = false
     } else if (wordGuessed) { // Word is guessed
       console.log(`Word guessed: ${wordGuessed}`)
@@ -87,6 +171,7 @@ function gameUI() { // Game UI Visuals
   $(".game").html("")
   const gameDiv = $(".game")
   const word = $("<ul>").addClass("word-list")
+  console.log(inProgress)
 
   for (i=0; i<chosenWordArray.length; i++) {
     word.append($("<li>").text(chosenWordBlanks[i]))
@@ -102,11 +187,12 @@ function statUI() {
 
   const numberGuessesLeft = $("<p>").text(`# of Guesses Left: ${guessesLeft}`)
   const guessedList = $("<p>").text(`Wrong Letters Guessed: ${lettersGuessed}`)
+  const theWord = $("<p>").text(`Your word was: ${revealWord}`)
   const winStat = $("<p>").text(`Wins: ${wins}`)
   const lossStat =  $("<p>").text(`Losses: ${losses}`)
 
   overall.append(winStat).append(lossStat)
-  current.append(numberGuessesLeft).append(guessedList)
+  current.append(numberGuessesLeft).append(guessedList).append(theWord)
   statDiv.append(overall).append(current)
 }
 // ~~~ UI END ~~~
